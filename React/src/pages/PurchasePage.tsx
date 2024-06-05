@@ -1,11 +1,11 @@
 import GroupSelect from "../components/GroupSelect"
-import { Button } from '@chakra-ui/react'
+import PurchaseConfirm from "../components/PurchaseConfirm"
 
 const PurchasePage = () => {
   return (
     <>
       <GroupSelect />
-      <Button colorScheme='blue' mt="20">購入</Button>
+      <PurchaseConfirm />
     </>
   )
 }
