@@ -1,7 +1,7 @@
-from routers.schemas import PurchaseBase
+from schemas.purchase import PurchaseBase
 from sqlalchemy.orm.session import Session
 import datetime
-from database.models import DbPurchase
+from db.models.purchase import DbPurchase
 
 
 def create(db: Session, request: PurchaseBase):
