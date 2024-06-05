@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
-from routers.schemas import PurchaseBase
+from schemas.purchase import PurchaseBase
 from sqlalchemy.orm.session import Session
-from database.database import get_db
-from database import db_purchase
+from api.deps import get_db
+from crud import purchase as db_purchase
 
 router = APIRouter(
     prefix="/purchase",
