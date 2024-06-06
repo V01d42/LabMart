@@ -7,11 +7,11 @@ class PurchaseBase(BaseModel):
     user_id: int
     quantity: int
     total_price: int
-    purchase_date: datetime
 
 
-class PurchaseDisplay(PurchaseBase):
+class Purchase(PurchaseBase):
     id: int
+    purchase_date: datetime
 
     class Config:
         orm_mode = True
