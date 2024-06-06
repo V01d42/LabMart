@@ -1,4 +1,4 @@
-
+<h2>FastAPI</h2>
 
 FastAPI以下のディレクトリ構造は以下のようになっている。
 
@@ -12,36 +12,35 @@ FastAPI以下のディレクトリ構造は以下のようになっている。
 │   │   ├── deps.py
 │   │   ├── routers/
 │   │   │   ├── __init__.py
-│   │   │   ├── {item}.py
-│   ├── core/
+│   │   │   ├── //router-files
+│   ├── crud/
 │   │   ├── __init__.py
-│   │   ├── config.py
-│   │   ├── security.py
+│   │   ├── //crud-files
 │   ├── db/
 │   │   ├── __init__.py
-│   │   ├── base.py
 │   │   ├── models/
 │   │   │   ├── __init__.py
-│   │   │   ├── {item}.py
+│   │   │   ├── //model-files
 │   │   ├── session.py
 │   ├── schemas/
 │   │   ├── __init__.py
-│   │   ├── {item}.py
-│   ├── crud/
+│   │   ├── //schema-files
+│   ├── services/
 │   │   ├── __init__.py
-│   │   ├── {item}.py
+│   │   ├── config.py
+│   │   ├── security.py
+│   │   ├── //services-files
 ```
 
 各々のディレクトリの役割は以下の通り
 - api/: APIエンドポイント関連（Router等）のディレクトリ
   - deps.py: 依存関係の解決に使用されるファイル
-  - endpoints/: 各エンドポイントのディレクトリ
-- core/: アプリケーションのコア設定やセキュリティ関連のディレクトリ
-  - config.py: 設定ファイル
-  - security.py: セキュリティ関連のユーティリティ
+  - routers/: 各エンドポイントのディレクトリ
+- crud/: データベース操作の基本機能をまとめたディレクトリ
 - db/: データベース関連のディレクトリ
-  - base.py: データベースのベースクラス
   - models/: データベースのモデル
   - session.py: データベースセッションの管理
 - schemas/: スキーマ関連のディレクトリ
-- crud/: データベース操作の基本機能をまとめたディレクトリ
+- services/: セキュリティ関連やcrud操作に関係のない関数を記述するディレクトリ
+  - config.py: 設定ファイル
+  - security.py: セキュリティ関連のユーティリティ
