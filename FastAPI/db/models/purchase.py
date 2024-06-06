@@ -6,11 +6,8 @@ from sqlalchemy import Column, Integer, String, DateTime
 class DbPurchase(Base):
     __tablename__ = "purchase"
     id = Column(Integer, primary_key=True, index=True)
+    product_id = Column(Integer)
     user_id = Column(Integer)
-    store_id = Column(Integer)
-    item_id = Column(Integer)
-    item_name = Column(String)
-    item_price = Column(Integer)
-    purchase_timestamp = Column(DateTime)
-    purchase_num = Column(Integer)
-    total_price = Column(Integer)
+    quantity = Column(Integer)
+    total_price = Column(String)
+    purchase_date = Column(DateTime)
