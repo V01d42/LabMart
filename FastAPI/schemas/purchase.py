@@ -3,25 +3,15 @@ from datetime import datetime
 
 
 class PurchaseBase(BaseModel):
+    product_id: int
     user_id: int
-    store_id: int
-    item_id: int
-    item_name: str
-    item_price: int
-    purchase_num: int
+    quantity: int
     total_price: int
+    purchase_date: datetime
 
 
-class PurchaseDisplay(BaseModel):
+class PurchaseDisplay(PurchaseBase):
     id: int
-    user_id: int
-    store_id: int
-    item_id: int
-    item_name: str
-    item_price: int
-    purchase_timestamp: datetime
-    purchase_num: int
-    total_price: int
 
     class Config:
         orm_mode = True
