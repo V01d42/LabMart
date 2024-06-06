@@ -4,6 +4,7 @@ from sqlalchemy.orm.session import Session
 from api.deps import get_db
 from crud import purchase as db_purchase
 
+
 router = APIRouter(
     prefix="/purchase",
     tags=["purchase"],
