@@ -1,7 +1,7 @@
 from schemas.user import UserCreate
 from sqlalchemy.orm.session import Session
 import datetime
-from db.models import user
+from db.models import user as models
 from core.security import get_password_hash
 
 
@@ -22,7 +22,7 @@ from core.security import get_password_hash
 
 
 def create_user(db: Session, user: UserCreate):
-    new_user = user.User(
+    new_user = models.User(
         email=user.email,
         username=user.username,
         hashed_password=get_password_hash(user.password)
