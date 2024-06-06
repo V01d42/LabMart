@@ -21,7 +21,7 @@ from core.security import get_password_hash
 #     return db.query(models.User).offset(skip).limit(limit).all()
 
 
-def create_user(db: Session, user: UserCreate):
+def create(db: Session, user: UserCreate):
     new_user = models.User(
         email=user.email,
         username=user.username,
