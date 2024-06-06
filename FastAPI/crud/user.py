@@ -23,9 +23,12 @@ def get_users(db: Session, skip: get_user = 0, limit: get_user = 100):
 
 def create(db: Session, user: UserCreate):
     new_user = models.DbUser(
-        email=user.email,
         username=user.username,
-        hashed_password=get_password_hash(user.password)
+        email=user.email,
+        hashed_password=get_password_hash(user.password),
+        role_id=user.role_id,
+        created_at=user.created_at,
+        updated_at=user.updated_at,
     )
     db.add(new_user)
     db.commit()
