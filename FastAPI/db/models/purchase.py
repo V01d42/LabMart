@@ -4,7 +4,6 @@ from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
 
-# 購入情報のモデル
 class DbPurchase(Base):
     __tablename__ = "purchase"
     id = Column(Integer, primary_key=True, index=True)
