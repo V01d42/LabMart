@@ -2,8 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from db.models import purchase as purchase_models
 from db.models import user as user_models
+from db.models import product as product_models
 from db.session import engine
-from api.routers import purchase, users, auth
+from api.routers import users, auth, purchase, products
 
 app = FastAPI()
 
@@ -19,9 +20,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(purchase.router)
 app.include_router(users.router)
 app.include_router(auth.router)
+app.include_router(purchase.router)
+app.include_router(products.router)
 
 @app.get("/")
 def hw():
@@ -30,3 +32,4 @@ def hw():
 
 purchase_models.Base.metadata.create_all(bind=engine)
 user_models.Base.metadata.create_all(bind=engine)
+product_models.Base.metadata.create_all(bind=engine)
