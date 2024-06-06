@@ -27,8 +27,8 @@ def create(db: Session, user: UserCreate):
         email=user.email,
         hashed_password=get_password_hash(user.password),
         role_id=user.role_id,
-        created_at=user.created_at,
-        updated_at=user.updated_at,
+        created_at=datetime.datetime.now(),
+        updated_at=datetime.datetime.now(),
     )
     db.add(new_user)
     db.commit()
