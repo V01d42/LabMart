@@ -2,7 +2,7 @@ from schemas.user import UserCreate
 from sqlalchemy.orm.session import Session
 import datetime
 from db.models import user as models
-from services.security import get_password_hash
+from services.hashing import get_password_hash
 
 
 def get_user(db: Session, user_id: str):
