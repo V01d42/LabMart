@@ -1,5 +1,6 @@
 from db.session import Base
 from sqlalchemy import Boolean, Column, Integer, String, DateTime
+from sqlalchemy.orm import relationship
 
 
 class DbUser(Base):
@@ -12,3 +13,4 @@ class DbUser(Base):
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
     is_active = Column(Boolean, default=True)
+    purchase = relationship("DbPurchase", uselist=True)

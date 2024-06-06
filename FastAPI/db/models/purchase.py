@@ -1,5 +1,6 @@
 from db.session import Base
 from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.orm import relationship
 
 
 # 購入情報のモデル
@@ -11,3 +12,4 @@ class DbPurchase(Base):
     quantity = Column(Integer)
     total_price = Column(String)
     purchase_date = Column(DateTime)
+    user = relationship("DbUser")
