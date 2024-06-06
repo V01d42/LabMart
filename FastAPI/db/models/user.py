@@ -14,3 +14,4 @@ class DbUser(Base):
     updated_at = Column(DateTime)
     is_active = Column(Boolean, default=True)
     purchases = relationship("DbPurchase", back_populates="user")
+    products = relationship("DbProduct", back_populates="admin")
