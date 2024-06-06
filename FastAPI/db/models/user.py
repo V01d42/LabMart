@@ -13,4 +13,4 @@ class DbUser(Base):
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
     is_active = Column(Boolean, default=True)
-    purchase = relationship("DbPurchase", uselist=True)
+    purchases = relationship("DbPurchase", back_populates="user")

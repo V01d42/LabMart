@@ -9,8 +9,8 @@ class DbPurchase(Base):
     __tablename__ = "purchase"
     id = Column(Integer, primary_key=True, index=True)
     product_id = Column(Integer)
-    user_id = Column(Integer, ForeignKey("users.id", nullable=False))
+    user_id = Column(Integer, ForeignKey("users.id"))
     quantity = Column(Integer)
     total_price = Column(String)
     purchase_date = Column(DateTime)
-    user = relationship("DbUser")
+    user = relationship("DbUser", back_populates="purchases")
