@@ -10,7 +10,7 @@ def create(db: Session, request: PurchaseBase):
         user_id=request.user_id,
         quantity=request.quantity,
         total_price=request.total_price,
-        purchase_timestamp=datetime.datetime.now(),
+        purchase_date=datetime.datetime.now(),
     )
     db.add(new_purchase)
     db.commit()
