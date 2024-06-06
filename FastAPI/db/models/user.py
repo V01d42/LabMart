@@ -1,5 +1,5 @@
 from db.session import Base
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Boolean, Column, Integer, String, DateTime
 
 
 class DbUser(Base):
@@ -11,3 +11,4 @@ class DbUser(Base):
     role_id = Column(Integer)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
+    is_active = Column(Boolean, default=True)
