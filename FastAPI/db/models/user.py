@@ -1,5 +1,5 @@
 from db.session import Base
-from sqlalchemy import Boolean, Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime
 
 
 class DbUser(Base):
@@ -8,4 +8,6 @@ class DbUser(Base):
     username = Column(String, unique=True, index=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
-    is_active = Column(Boolean, default=True)
+    role_id = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
