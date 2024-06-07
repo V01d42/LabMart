@@ -30,14 +30,16 @@ const SigninPage = () => {
   const [show, setShow] = useState<boolean>(false);
 
   const onSubmit = handleSubmit(async (data) => {
-    // データ送信の処理をここに追加
-    console.log(data);
+    // console.log(data);
 
-    // メールアドレスを追加
     const userData = {
       email: 'ho@ge.com',
+      role_id: 0,
       ...data,
     };
+
+    console.log(userData)
+    console.log(JSON.stringify(userData))
 
     try {
       const response = await fetch('http://127.0.0.1:8000/users', {
