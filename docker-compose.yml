@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Docker/backend/Dockerfile
+    volumes:
+      - ./FastAPI/db/init/:/backend/db/init/
     ports:
       - 3001:3001
   
