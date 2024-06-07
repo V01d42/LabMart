@@ -1,16 +1,16 @@
 from db.session import Base
 from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.schema import ForeignKey
+from sqlalchemy.orm import relationship
 
 
-# 購入情報のモデル
 class DbPurchase(Base):
     __tablename__ = "purchase"
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer)
-    store_id = Column(Integer)
-    item_id = Column(Integer)
-    item_name = Column(String)
-    item_price = Column(Integer)
-    purchase_timestamp = Column(DateTime)
-    purchase_num = Column(Integer)
-    total_price = Column(Integer)
+    product_id = Column(Integer, ForeignKey("products.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
+    quantity = Column(Integer)
+    total_price = Column(String)
+    purchase_date = Column(DateTime)
+    user = relationship("DbUser", back_populates="purchases")
+    product = relationship("DbProduct", back_populates="purchases")

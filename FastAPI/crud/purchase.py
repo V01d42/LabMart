@@ -6,14 +6,11 @@ from db.models.purchase import DbPurchase
 
 def create(db: Session, request: PurchaseBase):
     new_purchase = DbPurchase(
+        product_id=request.product_id,
         user_id=request.user_id,
-        store_id=request.store_id,
-        item_id=request.item_id,
-        item_name=request.item_name,
-        item_price=request.item_price,
-        purchase_timestamp=datetime.datetime.now(),
-        purchase_num=request.purchase_num,
+        quantity=request.quantity,
         total_price=request.total_price,
+        purchase_date=datetime.datetime.now(),
     )
     db.add(new_purchase)
     db.commit()
