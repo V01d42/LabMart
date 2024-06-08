@@ -6,7 +6,7 @@ from sqlalchemy.orm.session import Session
 
 from api.deps import get_db
 from crud import purchase as db_purchase
-from services.security import get_purchase_by_user
+from services.purchase import get_purchase_by_user
 
 
 router = APIRouter(
