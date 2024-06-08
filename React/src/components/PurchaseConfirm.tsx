@@ -118,45 +118,63 @@ interface PurchaseModalProps {
 const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpen, onClose, onConfirm }) => {
   const totalAmount = selectedProducts.reduce((total, product) => total + product.price * product.quantity, 0);
 
+  // console.log("test1")
+  // console.log(typeof selectedProducts.length)
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>購入確認</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <TableContainer>
-            <Table variant='simple'>
-              <Thead>
-                <Tr>
-                  <Th>商品名</Th>
-                  <Th>個数</Th>
-                  <Th>部屋番号</Th>
-                  <Th>金額(円)</Th>
-                </Tr>
-              </Thead>
-              {selectedProducts.map((product, index) => (
-                <Tbody key={index}>
-                  <Tr>
-                    <Td>{product.name}</Td>
-                    <Td>{product.quantity}</Td>
-                    <Td>{product.store_id}</Td>
-                    <Td>{product.price * product.quantity}</Td>
-                  </Tr>
-                </Tbody>
-              ))}
-            </Table>
-          </TableContainer>
+        {selectedProducts.length === 0 ? (
+          <>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text mt='5' textAlign='center'>商品足りてないって。</Text>
+            <Text mt='5' textAlign='center'>厳しいって。</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme='yellow' onClick={onClose}>さっさと戻れよ。</Button>
+          </ModalFooter>
+        </>
+        ) : (
+          <>
+            <ModalHeader>購入確認</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <TableContainer>
+                <Table variant='simple'>
+                  <Thead>
+                    <Tr>
+                      <Th>商品名</Th>
+                      <Th>個数</Th>
+                      <Th>部屋番号</Th>
+                      <Th>金額(円)</Th>
+                    </Tr>
+                  </Thead>
+                  {selectedProducts.map((product, index) => (
+                    <Tbody key={index}>
+                      <Tr>
+                        <Td>{product.name}</Td>
+                        <Td>{product.quantity}</Td>
+                        <Td>{product.store_id}</Td>
+                        <Td>{product.price * product.quantity}</Td>
+                      </Tr>
+                    </Tbody>
+                  ))}
+                </Table>
+              </TableContainer>
 
-          <Text mt='5' textAlign='center'>合計金額: {totalAmount} 円</Text>
-        </ModalBody>
+              <Text mt='5' textAlign='center'>合計金額: {totalAmount} 円</Text>
+            </ModalBody>
 
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onConfirm}>
-            購入
-          </Button>
-          <Button variant="ghost" onClick={onClose}>キャンセル</Button>
-        </ModalFooter>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onConfirm}>
+                購入
+              </Button>
+              <Button variant="ghost" onClick={onClose}>キャンセル</Button>
+            </ModalFooter>
+          </>
+        )}
       </ModalContent>
     </Modal>
   );
