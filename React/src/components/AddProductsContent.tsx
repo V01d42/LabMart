@@ -21,6 +21,7 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import { useState, useCallback } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
+import { requestWithAuth } from "../RequestWithAuth";
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -124,7 +125,7 @@ const AddProductsContent: React.FC = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/products", {
+      const response = await requestWithAuth("http://localhost:8000/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
