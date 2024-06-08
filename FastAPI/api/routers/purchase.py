@@ -16,7 +16,7 @@ router = APIRouter(
 )
 
 
-@router.get("", response_model=List[Purchase])
+@router.get("/me", response_model=List[Purchase])
 async def read_purchase_me(purchases: List[Purchase] = Depends(get_purchase_by_user)):
     return purchases
 

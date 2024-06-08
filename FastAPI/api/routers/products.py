@@ -15,6 +15,11 @@ router = APIRouter(
 )
 
 
+@router.get("/me", response_model=List[Product])
+def read_product(db: Session = Depends(get_db)):
+    return crut_product.get_products(db=db)
+
+
 @router.get("", response_model=List[Product])
 def read_product(db: Session = Depends(get_db)):
     return crut_product.get_products(db=db)
