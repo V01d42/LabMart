@@ -104,7 +104,7 @@ import {
 interface SelectedProduct {
   name: string;
   price: number;
-  stock: number;
+  quantity: number;
   store_id: number;
 }
 
@@ -116,7 +116,7 @@ interface PurchaseModalProps {
 }
 
 const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpen, onClose, onConfirm }) => {
-  const totalAmount = selectedProducts.reduce((total, product) => total + product.price * product.stock, 0);
+  const totalAmount = selectedProducts.reduce((total, product) => total + product.price * product.quantity, 0);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -139,9 +139,9 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpe
                 <Tbody key={index}>
                   <Tr>
                     <Td>{product.name}</Td>
-                    <Td>{product.stock}</Td>
+                    <Td>{product.quantity}</Td>
                     <Td>{product.store_id}</Td>
-                    <Td>{product.price * product.stock}</Td>
+                    <Td>{product.price * product.quantity}</Td>
                   </Tr>
                 </Tbody>
               ))}
