@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Button, useDisclosure } from '@chakra-ui/react';
-import SelectGroup from '../components/SelectGroup';
-import SelectProduct from '../components/SelectProduct';
-import PurchaseConfirm from '../components/PurchaseConfirm';
+import React, { useState, useEffect } from "react";
+import { Button, useDisclosure } from "@chakra-ui/react";
+import SelectGroup from "../components/SelectGroup";
+import SelectProduct from "../components/SelectProduct";
+import PurchaseConfirm from "../components/PurchaseConfirm";
 import { requestWithAuth } from "../RequestWithAuth";
 
 interface Product {
@@ -20,7 +20,9 @@ interface SelectedProduct extends Product {
 
 const PurchasePage: React.FC = () => {
   const [selectedGroup, setSelectedGroup] = useState<number>(319);
-  const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>(
+    []
+  );
   const [products, setProducts] = useState<Product[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isPurchaseComplete, setIsPurchaseComplete] = useState(false);
@@ -63,27 +65,29 @@ const PurchasePage: React.FC = () => {
       const purchaseData = {
         product_id: product.id,
         quantity: product.quantity,
-        total_price: product.price * product.quantity
+        total_price: product.price * product.quantity,
       };
 
       try {
-        const response = await requestWithAuth("http://127.0.0.1:8000/purchases", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(purchaseData),
-        });
+        const response = await requestWithAuth(
+          "http://127.0.0.1:8000/purchases",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(purchaseData),
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`Failed to purchase product ID ${product.id}`);
         }
 
         const data = await response.json();
-        console.log('成功:', data);
-
+        console.log("成功:", data);
       } catch (error) {
-        console.error('There was a problem with the purchase:', error);
+        console.error("There was a problem with the purchase:", error);
         // エラーが発生した場合でも次のアイテムの処理を続行
       }
     }
@@ -108,7 +112,9 @@ const PurchasePage: React.FC = () => {
         onProductSelect={handleProductSelect}
         products={products}
       />
-      <Button colorScheme="blue" mt='10' onClick={onOpen}>購入</Button>
+      <Button bg={"teal.400"} color={"white"} mt="10" onClick={onOpen}>
+        購入
+      </Button>
       <PurchaseConfirm
         selectedProducts={selectedProducts}
         isOpen={isOpen}
@@ -121,7 +127,6 @@ const PurchasePage: React.FC = () => {
 };
 
 export default PurchasePage;
-
 
 // 購入を続ける場合に選択肢を0に戻したかったけどできてない
 // import React, { useState, useEffect } from 'react';

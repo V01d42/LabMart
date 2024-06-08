@@ -20,7 +20,7 @@ import {
   RadioGroup,
   Stack,
   Radio,
-  Text,
+  Heading,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useState, useCallback } from "react";
@@ -170,8 +170,8 @@ const AddProductsContent: React.FC = () => {
     >
       <Flex justifyContent="center" alignItems="center">
         <VStack justifyContent="center" alignItems="center" spacing={10}>
-          <Text fontSize="2xl">商品追加</Text>
-          <RadioGroup onChange={setValue} value={value}>
+          <Heading>商品追加</Heading>
+          <RadioGroup onChange={setValue} value={value} colorScheme="teal">
             <Stack direction="row">
               <Radio value="319">319</Radio>
               <Radio value="324">324</Radio>
@@ -204,11 +204,17 @@ const AddProductsContent: React.FC = () => {
           </NumberInput>
           <Box>
             <ChakraLink as={ReactRouterLink} to="/admin">
-              <Button colorScheme="blue" width="100px" mr={2}>
+              <Button bg={"teal.400"} color={"white"} width="100px" mr={2}>
                 戻る
               </Button>
             </ChakraLink>
-            <Button colorScheme="blue" width="100px" onClick={onOpen} ml={2}>
+            <Button
+              bg={"teal.400"}
+              color={"white"}
+              width="100px"
+              onClick={onOpen}
+              ml={2}
+            >
               追加
             </Button>
           </Box>

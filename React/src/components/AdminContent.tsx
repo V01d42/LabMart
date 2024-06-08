@@ -13,17 +13,17 @@ const AdminContent = () => {
       <Flex justifyContent="center" alignItems="center">
         <VStack justifyContent="center" alignItems="center" spacing={10}>
           <ChakraLink as={ReactRouterLink} to="add-products">
-            <Button colorScheme="blue" width="150px">
+            <Button bg={"teal.400"} color={"white"} width="150px">
               商品の追加
             </Button>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="check-products">
-            <Button colorScheme="blue" width="150px">
+            <Button bg={"teal.400"} color={"white"} width="150px">
               在庫の確認
             </Button>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="billing-confirmation">
-            <Button colorScheme="blue" width="150px">
+            <Button bg={"teal.400"} color={"white"} width="150px">
               請求金額の確認
             </Button>
           </ChakraLink>

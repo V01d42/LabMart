@@ -15,6 +15,7 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  Heading,
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -57,6 +58,7 @@ const CheckProductsContent = () => {
       alignItems="center"
     >
       <VStack justifyContent="center" alignItems="center" spacing={10}>
+        <Heading>在庫の確認</Heading>
         <Card justifyContent="center" alignItems="center">
           <Tabs variant="soft-rounded" colorScheme="teal">
             <TabList>
@@ -95,7 +97,7 @@ const CheckProductsContent = () => {
           </Tabs>
         </Card>
         <ChakraLink as={ReactRouterLink} to="/admin">
-          <Button colorScheme="blue" width="150px">
+          <Button bg={"teal.400"} color={"white"} width="150px">
             戻る
           </Button>
         </ChakraLink>
