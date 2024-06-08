@@ -101,9 +101,8 @@
 
 // export default SelectProduct;
 
-
-import { Card } from '@chakra-ui/react';
-import React, { useState, useEffect } from 'react';
+import { Card, CardBody, Select, Text } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
 
 interface Product {
   name: string;
@@ -124,12 +123,16 @@ interface ProductListProps {
   onProductSelect: (product: SelectedProduct, quantity: number) => void;
 }
 
-const SelectProduct: React.FC<ProductListProps> = ({ selectedGroup, selectedProducts, onProductSelect }) => {
+const SelectProduct: React.FC<ProductListProps> = ({
+  selectedGroup,
+  selectedProducts,
+  onProductSelect,
+}) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch('http://127.0.0.1:8000/products');
+      const response = await fetch("http://127.0.0.1:8000/products");
       const data = await response.json();
       const filteredProducts = data.filter(
         (product: Product) => product.store_id === selectedGroup
@@ -147,22 +150,28 @@ const SelectProduct: React.FC<ProductListProps> = ({ selectedGroup, selectedProd
   return (
     <div>
       {products.map((product) => {
-        const selectedProduct = selectedProducts.find((p) => p.id === product.id);
+        const selectedProduct = selectedProducts.find(
+          (p) => p.id === product.id
+        );
         const initialQuantity = selectedProduct ? selectedProduct.quantity : 0;
 
         return (
-          <Card key={product.id} mt='5'>
-            <span>{product.name}</span>
-            <select
-              value={initialQuantity}
-              onChange={(e) => handleQuantityChange(product, parseInt(e.target.value, 10))}
-            >
-              {[...Array(product.stock + 1).keys()].map((i) => (
-                <option key={i} value={i}>
-                  {i}
-                </option>
-              ))}
-            </select>
+          <Card key={product.id} mt="5">
+            <CardBody>
+              <Text>{product.name}</Text>
+              <Select
+                value={initialQuantity}
+                onChange={(e) =>
+                  handleQuantityChange(product, parseInt(e.target.value, 10))
+                }
+              >
+                {[...Array(product.stock + 1).keys()].map((i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </Select>
+            </CardBody>
           </Card>
         );
       })}
