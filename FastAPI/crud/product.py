@@ -2,7 +2,6 @@ from schemas.product import ProductCreate
 from sqlalchemy.orm.session import Session
 import datetime
 from db.models import product as models
-from db.models.product import DbProduct
 
 
 def get_product(db: Session, product_id: str):
@@ -18,7 +17,7 @@ def get_products(db: Session, skip: get_product = 0, limit: get_product = 100):
 
 
 def create(db: Session, request: ProductCreate):
-    new_product = DbProduct(
+    new_product = models.DbProduct(
         name=request.name,
         description=request.description,
         store_id=request.store_id,

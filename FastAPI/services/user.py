@@ -7,6 +7,7 @@ from starlette import status
 
 from api.deps import get_db
 from crud import user as crud_user
+from crud import purchase as crud_purchase
 from db.models.user import DbUser
 from schemas.token import TokenData, Token
 from services import config

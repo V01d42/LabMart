@@ -1,13 +1,17 @@
 from schemas.purchase import PurchaseBase
 from sqlalchemy.orm.session import Session
 import datetime
-from db.models.purchase import DbPurchase
+from db.models import purchase as models
 
 
-def create(db: Session, request: PurchaseBase):
-    new_purchase = DbPurchase(
+def get_purchases_by_user_id(db: Session, user_id: str):
+    return db.query(models.DbPurchase).filter(models.DbPurchase.user_id == user_id)
+
+
+def create(db: Session, request: PurchaseBase, user_id: str):
+    new_purchase = models.DbPurchase(
         product_id=request.product_id,
-        user_id=request.user_id,
+        user_id=user_id,
         quantity=request.quantity,
         total_price=request.total_price,
         purchase_date=datetime.datetime.now(),
