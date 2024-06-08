@@ -4,6 +4,10 @@ import datetime
 from db.models import purchase as models
 
 
+def get_purchases_by_product_ids(db: Session, product_ids: [str]):
+    return db.query(models.DbPurchase).filter(models.DbPurchase.product_id.in_(product_ids))
+
+
 def get_purchases_by_user_id(db: Session, user_id: str):
     return db.query(models.DbPurchase).filter(models.DbPurchase.user_id == user_id)
 
