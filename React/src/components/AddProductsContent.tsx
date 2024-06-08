@@ -16,9 +16,11 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useState, useCallback } from "react";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -159,9 +161,16 @@ const AddProductsContent: React.FC = () => {
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          <Button colorScheme="blue" width="150px" onClick={onOpen}>
-            追加
-          </Button>
+          <Box>
+            <ChakraLink as={ReactRouterLink} to="/admin">
+              <Button colorScheme="blue" width="100px" mr={2}>
+                戻る
+              </Button>
+            </ChakraLink>
+            <Button colorScheme="blue" width="100px" onClick={onOpen} ml={2}>
+              追加
+            </Button>
+          </Box>
         </VStack>
       </Flex>
       <ConfirmationModal
