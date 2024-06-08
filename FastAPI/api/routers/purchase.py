@@ -32,7 +32,7 @@ async def read_purchase_sold(db: Session = Depends(get_db), products: List[Produ
     return db_purchases_sold
 
 
-@router.post("")
+@router.post("", response_model=Purchase)
 def create_purchase(request: PurchaseBase, db: Session = Depends(get_db), user: str = Depends(get_current_user)):
     db_product = crud_product.get_product(db, product_id=request.product_id)
     if db_product.stock < request.quantity:
@@ -44,7 +44,7 @@ def create_purchase(request: PurchaseBase, db: Session = Depends(get_db), user: 
         db.commit()
         db.refresh(db_product)
         db.refresh(db_purchase)
-    except Exception as e:
+    except:
         db.rollback()
-        raise e
+        raise HTTPException(status_code=400, detail="purchase error occurred")
     return db_purchase
