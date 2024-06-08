@@ -44,7 +44,7 @@
 //   return (
 //     <>
 //       <Button onClick={onOpen} colorScheme='blue' mt="20">購入</Button>
-      
+
 //       <Modal isOpen={isOpen} onClose={onClose}>
 //         <ModalOverlay />
 //         <ModalContent>
@@ -79,9 +79,6 @@
 // };
 
 // export default PurchaseConfirm;
-
-
-
 
 // import React from 'react';
 // import {
@@ -184,10 +181,7 @@
 
 // export default PurchaseConfirm;
 
-
-
-
-import React from 'react';
+import React from "react";
 import {
   Modal,
   ModalOverlay,
@@ -205,7 +199,9 @@ import {
   Tbody,
   Tr,
   Td,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 interface SelectedProduct {
   name: string;
@@ -222,8 +218,17 @@ interface PurchaseModalProps {
   isPurchaseComplete: boolean;
 }
 
-const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpen, onClose, onConfirm, isPurchaseComplete }) => {
-  const totalAmount = selectedProducts.reduce((total, product) => total + product.price * product.quantity, 0);
+const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
+  selectedProducts,
+  isOpen,
+  onClose,
+  onConfirm,
+  isPurchaseComplete,
+}) => {
+  const totalAmount = selectedProducts.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -231,11 +236,13 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpe
       <ModalContent>
         {isPurchaseComplete ? (
           <>
-            <ModalHeader>購入ありがとうございました。購入内容は以下の通りです。</ModalHeader>
+            <ModalHeader>
+              購入ありがとうございました。購入内容は以下の通りです。
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <TableContainer>
-                <Table variant='simple'>
+                <Table variant="simple">
                   <Thead>
                     <Tr>
                       <Th>商品名</Th>
@@ -256,13 +263,20 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpe
                   </Tbody>
                 </Table>
               </TableContainer>
-              <Text mt='5' textAlign='center'>合計金額: {totalAmount} 円</Text>
+              <Text mt="5" textAlign="center">
+                合計金額: {totalAmount} 円
+              </Text>
             </ModalBody>
             <ModalFooter>
               <Button colorScheme="blue" mr={3} onClick={onClose}>
                 購入を続ける
               </Button>
-              <Button variant="ghost" onClick={onClose}>購入を終わる</Button>
+              <ChakraLink as={ReactRouterLink} to="/">
+                <Button variant="ghost" onClick={onClose}>
+                  購入を終わる
+                </Button>
+              </ChakraLink>
+
             </ModalFooter>
           </>
         ) : (
@@ -271,12 +285,20 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpe
               <>
                 <ModalCloseButton />
                 <ModalBody>
-                  <Text mt='5' textAlign='center'>商品足りてないって。何してんのお前。</Text>
-                  <Text mt='5' textAlign='center'>厳しいって。</Text>
-                  <Text mt='5' textAlign='center'>もうし⚪️よ。</Text>
+                  <Text mt="5" textAlign="center">
+                    商品足りてないって。何してんのお前。
+                  </Text>
+                  <Text mt="5" textAlign="center">
+                    厳しいって。
+                  </Text>
+                  <Text mt="5" textAlign="center">
+                    もうし⚪️よ。
+                  </Text>
                 </ModalBody>
                 <ModalFooter>
-                  <Button colorScheme='yellow' onClick={onClose}>すみません戻ります...</Button>
+                  <Button colorScheme="yellow" onClick={onClose}>
+                    すみません戻ります...
+                  </Button>
                 </ModalFooter>
               </>
             ) : (
@@ -285,7 +307,7 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpe
                 <ModalCloseButton />
                 <ModalBody>
                   <TableContainer>
-                    <Table variant='simple'>
+                    <Table variant="simple">
                       <Thead>
                         <Tr>
                           <Th>商品名</Th>
@@ -306,13 +328,17 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpe
                       </Tbody>
                     </Table>
                   </TableContainer>
-                  <Text mt='5' textAlign='center'>合計金額: {totalAmount} 円</Text>
+                  <Text mt="5" textAlign="center">
+                    合計金額: {totalAmount} 円
+                  </Text>
                 </ModalBody>
                 <ModalFooter>
                   <Button colorScheme="blue" mr={3} onClick={onConfirm}>
                     購入
                   </Button>
-                  <Button variant="ghost" onClick={onClose}>キャンセル</Button>
+                  <Button variant="ghost" onClick={onClose}>
+                    キャンセル
+                  </Button>
                 </ModalFooter>
               </>
             )}
