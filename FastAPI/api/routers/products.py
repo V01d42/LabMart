@@ -6,6 +6,7 @@ from sqlalchemy.orm.session import Session
 
 from api.deps import get_db
 from crud import product as crut_product
+from services.user import get_current_user
 
 
 router = APIRouter(
@@ -20,5 +21,6 @@ def read_product(db: Session = Depends(get_db)):
 
 
 @router.post("", response_model=Product)
-def create_product(request: ProductCreate, db: Session = Depends(get_db)):
-    return crut_product.create(db, request)
+def create_product(request: ProductCreate, db: Session = Depends(get_db), user: str = Depends(get_current_user)):
+    db_product = crut_product.create(db, request, user.id)
+    return db_product
