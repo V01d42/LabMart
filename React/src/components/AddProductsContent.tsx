@@ -27,8 +27,9 @@ interface ConfirmationModalProps {
   onClose: () => void;
   productName: string;
   price: string;
-  quantity: number;
+  stock: number;
   onAddProduct: () => void;
+  isAdded: boolean;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -36,33 +37,51 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onClose,
   productName,
   price,
-  quantity,
+  stock,
   onAddProduct,
+  isAdded,
 }) => (
   <Modal isOpen={isOpen} onClose={onClose} isCentered>
     <ModalOverlay />
     <ModalContent>
-      <ModalHeader>確認</ModalHeader>
+      <ModalHeader>{isAdded ? "追加完了" : "確認"}</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-        <p>追加しますか？</p>
-        <p>商品名: {productName}</p>
-        <p>価格: {price}</p>
-        <p>数量: {quantity}</p>
+        {isAdded ? (
+          <p>商品を追加しました</p>
+        ) : (
+          <>
+            <p>追加しますか？</p>
+            <p>商品名: {productName}</p>
+            <p>価格: {price}</p>
+            <p>数量: {stock}</p>
+          </>
+        )}
       </ModalBody>
       <ModalFooter>
-        <Button variant="ghost" mr={3} onClick={onClose}>
-          キャンセル
-        </Button>
-        <Button
-          colorScheme="blue"
-          onClick={() => {
-            onAddProduct();
-            onClose();
-          }}
-        >
-          追加
-        </Button>
+        {isAdded ? (
+          <>
+            <ChakraLink as={ReactRouterLink} to="/admin">
+              <Button colorScheme="gray" mr={3}>
+                追加を終わる
+              </Button>
+            </ChakraLink>
+            <ChakraLink as={ReactRouterLink} to="/admin/add-products">
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                追加を続ける
+              </Button>
+            </ChakraLink>
+          </>
+        ) : (
+          <>
+            <Button colorScheme="gray" mr={3} onClick={onClose}>
+              キャンセル
+            </Button>
+            <Button colorScheme="blue" mr={3} onClick={onAddProduct}>
+              追加
+            </Button>
+          </>
+        )}
       </ModalFooter>
     </ModalContent>
   </Modal>
@@ -72,7 +91,8 @@ const AddProductsContent: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [productName, setProductName] = useState<string>("");
   const [price, setPrice] = useState<string>("");
-  const [quantity, setQuantity] = useState<number>(1);
+  const [stock, setStock] = useState<number>(1);
+  const [isAdded, setIsAdded] = useState<boolean>(false);
 
   const handleProductNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,8 +108,8 @@ const AddProductsContent: React.FC = () => {
     []
   );
 
-  const handleQuantityChange = useCallback((valueString: string) => {
-    setQuantity(Number(valueString));
+  const handleStockChange = useCallback((valueString: string) => {
+    setStock(Number(valueString));
   }, []);
 
   const handleAddProduct = useCallback(async () => {
@@ -99,7 +119,7 @@ const AddProductsContent: React.FC = () => {
       description: "",
       store_id: 1,
       price: Number(price),
-      stock: quantity,
+      stock: stock,
       admin_id: 1,
     };
 
@@ -122,11 +142,18 @@ const AddProductsContent: React.FC = () => {
       // 入力フィールドをリセット
       setProductName("");
       setPrice("");
-      setQuantity(1);
+      setStock(1);
+      setIsAdded(true);
     } catch (error) {
       console.error(error);
     }
-  }, [productName, price, quantity]);
+  }, [productName, price, stock]);
+
+  const handleClose = useCallback(() => {
+    // モーダルを閉じるときに追加完了ステートをリセット
+    setIsAdded(false);
+    onClose();
+  }, [onClose]);
 
   return (
     <Box
@@ -152,8 +179,8 @@ const AddProductsContent: React.FC = () => {
           <NumberInput
             defaultValue={1}
             min={1}
-            value={quantity}
-            onChange={handleQuantityChange}
+            value={stock}
+            onChange={handleStockChange}
           >
             <NumberInputField />
             <NumberInputStepper>
@@ -175,11 +202,12 @@ const AddProductsContent: React.FC = () => {
       </Flex>
       <ConfirmationModal
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={handleClose}
         productName={productName}
         price={price}
-        quantity={quantity}
+        stock={stock}
         onAddProduct={handleAddProduct}
+        isAdded={isAdded}
       />
     </Box>
   );
