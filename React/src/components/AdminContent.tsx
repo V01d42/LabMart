@@ -1,4 +1,6 @@
 import { Box, Button, Flex, VStack } from "@chakra-ui/react";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 const AdminContent = () => {
   return (
@@ -10,9 +12,11 @@ const AdminContent = () => {
     >
       <Flex justifyContent="center" alignItems="center">
         <VStack justifyContent="center" alignItems="center" spacing={10}>
-          <Button colorScheme="blue" width="150px">
-            商品の追加
-          </Button>
+          <ChakraLink as={ReactRouterLink} to="add-products">
+            <Button colorScheme="blue" width="150px">
+              商品の追加
+            </Button>
+          </ChakraLink>
           <Button colorScheme="blue" width="150px">
             在庫の確認
           </Button>
