@@ -11,8 +11,8 @@ from services.purchase import get_purchase_by_user
 
 
 router = APIRouter(
-    prefix="/purchase",
-    tags=["purchase"],
+    prefix="/purchases",
+    tags=["purchases"],
 )
 
 

@@ -8,8 +8,8 @@ def get_product(db: Session, product_id: str):
     return db.query(models.DbProduct).filter(models.DbProduct.id == product_id).first()
 
 
-def get_product_by_admin_id(db: Session, admin_id: str):
-    return db.query(models.DbProduct).filter(models.DbProduct.admin_id == admin_id).first()
+def get_products_by_admin_id(db: Session, admin_id: str):
+    return db.query(models.DbProduct).filter(models.DbProduct.admin_id == admin_id).all()
 
 
 def get_products(db: Session, skip: get_product = 0, limit: get_product = 100):
