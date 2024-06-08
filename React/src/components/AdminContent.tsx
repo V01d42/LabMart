@@ -22,9 +22,11 @@ const AdminContent = () => {
               在庫の確認
             </Button>
           </ChakraLink>
-          <Button colorScheme="blue" width="150px">
-            請求金額の確認
-          </Button>
+          <ChakraLink as={ReactRouterLink} to="billing-confirmation">
+            <Button colorScheme="blue" width="150px">
+              請求金額の確認
+            </Button>
+          </ChakraLink>
         </VStack>
       </Flex>
     </Box>
