@@ -36,5 +36,4 @@ async def get_purchase_by_user(settings: Annotated[config.Settings, Depends(conf
     if db_user is None:
         raise credentials_exception
     db_purchases = crud_purchase.get_purchases_by_user_id(db, user_id=db_user.id)
-    print(db_purchases)
     return db_purchases
