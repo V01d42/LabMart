@@ -1,11 +1,17 @@
-import GroupSelect from "../components/GroupSelect"
+import SelectGroup from "../components/SelectGroup"
 import PurchaseConfirm from "../components/PurchaseConfirm"
+import SelectProduct from "../components/SelectProduct"
+import { StoreidStatusProvider } from "../components/StoreidStatus"
 
 const PurchasePage = () => {
   return (
     <>
-      <GroupSelect />
-      <PurchaseConfirm />
+      <StoreidStatusProvider>
+        <SelectGroup />
+        <SelectProduct />
+      </StoreidStatusProvider>
+
+      {/* <PurchaseConfirm /> */}
     </>
   )
 }
