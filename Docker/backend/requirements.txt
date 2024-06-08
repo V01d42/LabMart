@@ -3,6 +3,7 @@ uvicorn
 python-multipart
 sqlalchemy
 pydantic
+pydantic_settings
 aiofiles
 bcrypt
 python-jose

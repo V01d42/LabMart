@@ -5,6 +5,14 @@ services:
     build:
       context: .
       dockerfile: Docker/backend/Dockerfile
+    env_file: FastAPI/.env
+    volumes:
+      - ./FastAPI/api:/backend/api
+      - ./FastAPI/crud:/backend/crud
+      - ./FastAPI/db:/backend/db
+      - ./FastAPI/schemas:/backend/schemas
+      - ./FastAPI/services:/backend/services
+
     ports:
       - 3001:3001
   
