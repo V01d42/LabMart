@@ -91,6 +91,15 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  Text,
+  Box,
+  TableContainer,
+  Table,
+  Thead,
+  Th,
+  Tbody,
+  Tr,
+  Td,
 } from "@chakra-ui/react";
 
 interface SelectedProduct {
@@ -116,12 +125,26 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpe
         <ModalHeader>購入確認</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          {selectedProducts.map((product, index) => (
-            <div key={index}>
-              <p>{product.name} - {product.quantity} 個 - ¥{product.price * product.quantity}</p>
-            </div>
-          ))}
-          <p>合計: ¥{totalAmount}</p>
+          <TableContainer>
+            <Table variant='simple'>
+              <Thead>
+                <Th>商品名</Th>
+                <Th>個数</Th>
+                <Th>金額</Th>
+              </Thead>
+              {selectedProducts.map((product, index) => (
+                <Tbody key={index}>
+                  <Tr>
+                    <Td>{product.name}</Td>
+                    <Td>{product.quantity}</Td>
+                    <Td>{product.price * product.quantity}</Td>
+                  </Tr>
+                </Tbody>
+              ))}
+            </Table>
+          </TableContainer>
+
+          <Text>合計金額: ¥{totalAmount}</Text>
         </ModalBody>
 
         <ModalFooter>
