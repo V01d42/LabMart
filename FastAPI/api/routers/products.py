@@ -1,7 +1,7 @@
 from typing import List
 
-from fastapi import APIRouter, Depends
-from schemas.product import ProductCreate, Product
+from fastapi import APIRouter, Depends, HTTPException
+from schemas.product import ProductBase, ProductCreate, Product
 from sqlalchemy.orm.session import Session
 
 from api.deps import get_db
@@ -27,6 +27,10 @@ def read_product(db: Session = Depends(get_db)):
 
 
 @router.post("", response_model=Product)
-def create_product(request: ProductCreate, db: Session = Depends(get_db), user: str = Depends(get_current_user)):
+def create_product(request: ProductBase, db: Session = Depends(get_db), user: str = Depends(get_current_user)):
+    if request.price <= 0:
+        raise HTTPException(status_code=400, detail="Price must be greater than 0")
+    if request.stock <= 0:
+        raise HTTPException(status_code=400, detail="Stock must be greater than 0")
     db_product = crut_product.create(db, request, user.id)
     return db_product

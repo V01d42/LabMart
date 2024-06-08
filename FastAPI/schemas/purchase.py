@@ -15,3 +15,13 @@ class Purchase(PurchaseBase):
 
     class Config:
         from_attributes = True
+
+class PurchaseShow(PurchaseBase):
+    product_id: int
+    product_name: str
+    user_id: int
+    username: str
+    purchase_date: datetime
+
+    class Config:
+        from_attributes = True
