@@ -1,8 +1,11 @@
+from typing import List
+
 from fastapi import APIRouter, Depends
-from schemas.product import ProductCreate
+from schemas.product import ProductCreate, Product
 from sqlalchemy.orm.session import Session
+
 from api.deps import get_db
-from crud import product as db_product
+from crud import product as crut_product
 
 
 router = APIRouter(
@@ -11,6 +14,11 @@ router = APIRouter(
 )
 
 
-@router.post("")
-def create(request: ProductCreate, db: Session = Depends(get_db)):
-    return db_product.create(db, request)
+@router.post("", response_model=Product)
+def create_product(request: ProductCreate, db: Session = Depends(get_db)):
+    return crut_product.create(db, request)
+
+
+@router.get("", response_model=List[Product])
+def read_product(db: Session = Depends(get_db)):
+    return crut_product.get_products(db=db)
