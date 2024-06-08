@@ -17,9 +17,11 @@ const AdminContent = () => {
               商品の追加
             </Button>
           </ChakraLink>
-          <Button colorScheme="blue" width="150px">
-            在庫の確認
-          </Button>
+          <ChakraLink as={ReactRouterLink} to="check-products">
+            <Button colorScheme="blue" width="150px">
+              在庫の確認
+            </Button>
+          </ChakraLink>
           <Button colorScheme="blue" width="150px">
             請求金額の確認
           </Button>
