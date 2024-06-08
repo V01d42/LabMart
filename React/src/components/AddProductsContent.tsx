@@ -90,14 +90,41 @@ const AddProductsContent: React.FC = () => {
     setQuantity(Number(valueString));
   }, []);
 
-  const handleAddProduct = useCallback(() => {
-    // ここで商品を追加するためのロジックを追加できます（例：APIコールなど）
+  const handleAddProduct = useCallback(async () => {
+    // APIを叩いて商品を追加する処理
+    const productData = {
+      name: productName,
+      description: "",
+      store_id: 1,
+      price: Number(price),
+      stock: quantity,
+      admin_id: 1,
+    };
 
-    // 入力フィールドをリセット
-    setProductName("");
-    setPrice("");
-    setQuantity(1);
-  }, []);
+    try {
+      const response = await fetch("http://localhost:8000/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
+      // レスポンスの処理
+      if (!response.ok) {
+        throw new Error("商品の追加に失敗しました");
+      }
+
+      const result = await response.json();
+      console.log("商品が正常に追加されました:", result);
+
+      // 入力フィールドをリセット
+      setProductName("");
+      setPrice("");
+      setQuantity(1);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [productName, price, quantity]);
 
   return (
     <Box
