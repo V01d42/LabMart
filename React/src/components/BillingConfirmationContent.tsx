@@ -11,6 +11,7 @@ import {
   Th,
   Td,
   Card,
+  Heading,
 } from "@chakra-ui/react";
 
 import { Link as ReactRouterLink } from "react-router-dom";
@@ -19,12 +20,31 @@ import { requestWithAuth } from "../RequestWithAuth";
 
 interface Billing {
   id: number;
-  user_id: string;
+  username: string;
   total_price: number;
 }
 
+const aggregateBillings = (billings: Billing[]): Billing[] => {
+  const aggregated: { [key: string]: number } = {};
+
+  billings.forEach((billing) => {
+    if (aggregated[billing.username]) {
+      aggregated[billing.username] += billing.total_price;
+    } else {
+      aggregated[billing.username] = billing.total_price;
+    }
+  });
+
+  return Object.keys(aggregated).map((username, index) => ({
+    id: index,
+    username,
+    total_price: aggregated[username],
+  }));
+};
+
 const BillingConfirmationContent = () => {
   const [billings, setBillings] = useState<Billing[]>([]);
+
   useEffect(() => {
     const fetchBillings = async () => {
       try {
@@ -35,7 +55,8 @@ const BillingConfirmationContent = () => {
           throw new Error("請求情報の取得に失敗しました");
         }
         const data = await response.json();
-        setBillings(data);
+        const aggregatedData = aggregateBillings(data);
+        setBillings(aggregatedData);
       } catch (error) {
         console.error(error);
       }
@@ -52,19 +73,20 @@ const BillingConfirmationContent = () => {
       alignItems="center"
     >
       <VStack justifyContent="center" alignItems="center" spacing={10}>
+        <Heading>請求金額の確認</Heading>
         <Card justifyContent="center" alignItems="center">
           <TableContainer>
             <Table variant="simple">
               <Thead>
                 <Tr>
                   <Th>購入者</Th>
-                  <Th isNumeric>請求金額</Th>
+                  <Th isNumeric>請求金額(円)</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {billings.map((billing) => (
                   <Tr key={billing.id}>
-                    <Td>{billing.user_id}</Td>
+                    <Td>{billing.username}</Td>
                     <Td isNumeric>{billing.total_price}</Td>
                   </Tr>
                 ))}
@@ -73,7 +95,7 @@ const BillingConfirmationContent = () => {
           </TableContainer>
         </Card>
         <ChakraLink as={ReactRouterLink} to="/admin">
-          <Button colorScheme="blue" width="150px">
+          <Button bg={"teal.400"} color={"white"} width="150px">
             戻る
           </Button>
         </ChakraLink>
