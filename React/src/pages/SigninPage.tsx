@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import {
@@ -45,8 +45,12 @@ const SigninPage = () => {
   const [show, setShow] = useState<boolean>(false);
   const [isManager, setIsManager] = useState<boolean>(false);
   const navigate = useNavigate();
+  // Clear token when the component mounts
+  useEffect(() => {
+    localStorage.removeItem("token");
+  }, []);
 
-  const onSignInSubmit = handleSignInSubmit(async (data) => {
+  const onSignInSubmit = async (data: FormInputs) => {
     const request_data = new URLSearchParams({
       grant_type: "",
       username: data.username,
@@ -74,7 +78,7 @@ const SigninPage = () => {
         const result = await response.json();
         console.log("成功:", result);
         localStorage.setItem("token", result.access_token);
-        //role_idが1の場合は管理者画面に遷移
+        // role_idが1の場合は管理者画面に遷移
         if (result.role_id === 1) {
           navigate("/admin");
         } else {
@@ -84,7 +88,7 @@ const SigninPage = () => {
     } catch (error) {
       console.error("エラーが発生しました:", error);
     }
-  });
+  };
 
   const onSignUpSubmit = handleSignUpSubmit(async (data) => {
     const userData = {
@@ -108,12 +112,12 @@ const SigninPage = () => {
         // 成功した場合の処理
         const result = await response.json();
         console.log("成功:", result);
-        //role_idが1の場合は管理者画面に遷移
-        if (isManager) {
-          navigate("/admin");
-        } else {
-          navigate("/purchase");
-        }
+
+        // ユーザーが作成された後にサインインを実行
+        await onSignInSubmit({
+          username: data.username,
+          password: data.password,
+        });
       }
     } catch (error) {
       console.error("エラーが発生しました:", error);
@@ -129,15 +133,15 @@ const SigninPage = () => {
       alignItems="center"
     >
       <VStack spacing="5">
-        <Heading>ようこそ</Heading>
+        <Heading>LabMart</Heading>
         <Tabs variant="soft-rounded" colorScheme="teal">
-          <TabList>
+          <TabList justifyContent="center">
             <Tab>ログイン</Tab>
             <Tab>新規登録</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
-              <form onSubmit={onSignInSubmit}>
+              <form onSubmit={handleSignInSubmit(onSignInSubmit)}>
                 <VStack spacing="4" alignItems="left">
                   <FormControl>
                     <FormLabel htmlFor="username" textAlign="start">
