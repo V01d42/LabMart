@@ -4,6 +4,7 @@ import SigninPage from "./pages/SigninPage";
 import AdminPage from "./pages/AdminPage";
 import AddProductsPage from "./pages/AddProductsPage";
 import CheckProductsPage from "./pages/CheckProductsPage";
+import BillingConfirmationPage from "./pages/BillingConfirmationPage";
 
 const Routes: RouteObject[] = [
   {
@@ -13,6 +14,10 @@ const Routes: RouteObject[] = [
       { path: "/admin", element: <AdminPage /> },
       { path: "/admin/add-products", element: <AddProductsPage /> },
       { path: "/admin/check-products", element: <CheckProductsPage /> },
+      {
+        path: "/admin/billing-confirmation",
+        element: <BillingConfirmationPage />,
+      },
     ],
   },
 ];

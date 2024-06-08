@@ -17,6 +17,10 @@ import {
   ModalBody,
   ModalCloseButton,
   Link as ChakraLink,
+  RadioGroup,
+  Stack,
+  Radio,
+  Text,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { useState, useCallback } from "react";
@@ -94,6 +98,7 @@ const AddProductsContent: React.FC = () => {
   const [price, setPrice] = useState<string>("");
   const [stock, setStock] = useState<number>(1);
   const [isAdded, setIsAdded] = useState<boolean>(false);
+  const [value, setValue] = useState<string>("319");
 
   const handleProductNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,7 +123,7 @@ const AddProductsContent: React.FC = () => {
     const productData = {
       name: productName,
       description: "",
-      store_id: 1,
+      store_id: value,
       price: Number(price),
       stock: stock,
       admin_id: 1,
@@ -148,7 +153,7 @@ const AddProductsContent: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [productName, price, stock]);
+  }, [productName, price, stock, value]);
 
   const handleClose = useCallback(() => {
     // モーダルを閉じるときに追加完了ステートをリセット
@@ -165,6 +170,14 @@ const AddProductsContent: React.FC = () => {
     >
       <Flex justifyContent="center" alignItems="center">
         <VStack justifyContent="center" alignItems="center" spacing={10}>
+          <Text fontSize="2xl">商品追加</Text>
+          <RadioGroup onChange={setValue} value={value}>
+            <Stack direction="row">
+              <Radio value="319">319</Radio>
+              <Radio value="324">324</Radio>
+              <Radio value="405">405</Radio>
+            </Stack>
+          </RadioGroup>
           <Input
             placeholder="商品名"
             type="text"
