@@ -1,4 +1,4 @@
-from schemas.product import ProductCreate
+from schemas.product import ProductBase, ProductCreate
 from sqlalchemy.orm.session import Session
 import datetime
 from db.models import product as models
@@ -16,7 +16,7 @@ def get_products(db: Session, skip: get_product = 0, limit: get_product = 100):
     return db.query(models.DbProduct).offset(skip).limit(limit).all()
 
 
-def create(db: Session, request: ProductCreate, admin_id: str):
+def create(db: Session, request: ProductBase, admin_id: str):
     new_product = models.DbProduct(
         name=request.name,
         description=request.description,
