@@ -74,7 +74,12 @@ const SigninPage = () => {
         const result = await response.json();
         console.log("成功:", result);
         localStorage.setItem("token", result.access_token);
-        navigate("/purchase");
+        //role_idが1の場合は管理者画面に遷移
+        if (result.role_id === 1) {
+          navigate("/admin");
+        } else {
+          navigate("/purchase");
+        }
       }
     } catch (error) {
       console.error("エラーが発生しました:", error);
