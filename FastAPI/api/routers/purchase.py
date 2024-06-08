@@ -56,7 +56,7 @@ async def read_purchase_sold(db: Session = Depends(get_db), products: List[Produ
         }
         purchase_sold_show = PurchaseShow(**purchase_sold_show_)
         purchases_sold_show.append(purchase_sold_show)
-    return db_purchases_sold_show
+    return purchases_sold_show
 
 
 @router.post("", response_model=Purchase)
