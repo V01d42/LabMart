@@ -31,3 +31,20 @@ def create(db: Session, request: ProductCreate, admin_id: str):
     db.commit()
     db.refresh(new_product)
     return new_product
+
+
+def update(db: Session, product_id: str, request: ProductCreate):
+    db_product = db.query(models.DbProduct).filter(models.DbProduct.id == product_id)
+    db_product.update(
+        {
+            "name": request.name,
+            "description": request.description,
+            "store_id": request.store_id,
+            "price": request.price,
+            "stock": request.stock,
+            "updated_at": datetime.datetime.now(),
+        }
+    )
+    db.commit()
+    db.refresh(product)
+    return product
