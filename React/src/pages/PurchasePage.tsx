@@ -62,7 +62,11 @@ const PurchasePage: React.FC = () => {
   };
 
   const handleConfirm = () => {
+    // ここに購入後の処理を記述する (今は購入品をコンソールで表示するだけ)
     console.log('Purchased:', selectedProducts);
+    {selectedProducts.map((product, index) => (
+      console.log(product.name)
+    ))}
     onClose();
   };
 
