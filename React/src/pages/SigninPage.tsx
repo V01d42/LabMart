@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Flex,
@@ -11,10 +11,16 @@ import {
   InputGroup,
   InputRightElement,
   VStack,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 // フォームで使用する変数の型を定義
 type FormInputs = {
+  username: string;
+  password: string;
+};
+
+type SignUpInputs = {
+  email: string;
   username: string;
   password: string;
 };
@@ -25,41 +31,74 @@ type FormInputs = {
  */
 
 const SigninPage = () => {
-  const { handleSubmit, register } = useForm<FormInputs>();
+  const { handleSubmit: handleSignInSubmit, register: registerSignIn } =
+    useForm<FormInputs>();
+  const { handleSubmit: handleSignUpSubmit, register: registerSignUp } =
+    useForm<SignUpInputs>();
 
   const [show, setShow] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-  const onSubmit = handleSubmit(async (data) => {
-    // console.log(data);
-
-    const userData = {
-      email: 'ho@ge.com',
-      role_id: 0,
-      ...data,
-    };
-
-    console.log(userData)
-    console.log(JSON.stringify(userData))
+  const onSignInSubmit = handleSignInSubmit(async (data) => {
+    const request_data = new URLSearchParams({
+      grant_type: "",
+      username: data.username,
+      password: data.password,
+      scope: "",
+      client_id: "",
+      client_secret: "",
+    }).toString();
+    console.log(request_data);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/users', {
-        method: 'POST',
+      const response = await fetch("http://127.0.0.1:8000/token", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify(userData),
+        body: request_data,
       });
-  
+
       if (!response.ok) {
         // サーバーからエラーレスポンスが返された場合の処理
-        console.error('エラーが発生しました:', response.statusText);
+        console.error("エラーが発生しました:", response.statusText);
       } else {
         // 成功した場合の処理
         const result = await response.json();
-        console.log('成功:', result);
+        console.log("成功:", result);
+        localStorage.setItem("token", result.access_token);
+        navigate("/purchase");
       }
     } catch (error) {
-      console.error('エラーが発生しました:', error);
+      console.error("エラーが発生しました:", error);
+    }
+  });
+
+  const onSignUpSubmit = handleSignUpSubmit(async (data) => {
+    const userData = {
+      ...data,
+      role_id: 0,
+    };
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        // サーバーからエラーレスポンスが返された場合の処理
+        console.error("エラーが発生しました:", response.statusText);
+      } else {
+        // 成功した場合の処理
+        const result = await response.json();
+        console.log("成功:", result);
+      }
+    } catch (error) {
+      console.error("エラーが発生しました:", error);
     }
   });
 
@@ -73,13 +112,13 @@ const SigninPage = () => {
     >
       <VStack spacing="5">
         <Heading>ログイン</Heading>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSignInSubmit}>
           <VStack spacing="4" alignItems="left">
             <FormControl>
               <FormLabel htmlFor="username" textAlign="start">
                 ユーザーネーム
               </FormLabel>
-              <Input id="username" {...register("username")} />
+              <Input id="username" {...registerSignIn("username")} />
             </FormControl>
 
             <FormControl>
@@ -88,7 +127,7 @@ const SigninPage = () => {
                 <Input
                   pr="4.5rem"
                   type={show ? "text" : "password"}
-                  {...register("password")}
+                  {...registerSignIn("password")}
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
@@ -106,20 +145,51 @@ const SigninPage = () => {
             >
               ログイン
             </Button>
+          </VStack>
+        </form>
+
+        <Heading>新規登録</Heading>
+        <form onSubmit={onSignUpSubmit}>
+          <VStack spacing="4" alignItems="left">
+            <FormControl>
+              <FormLabel htmlFor="email">メールアドレス</FormLabel>
+              <Input id="email" {...registerSignUp("email")} />
+            </FormControl>
+
+            <FormControl>
+              <FormLabel htmlFor="username">ユーザーネーム</FormLabel>
+              <Input id="username" {...registerSignUp("username")} />
+            </FormControl>
+
+            <FormControl>
+              <FormLabel htmlFor="password">パスワード</FormLabel>
+              <InputGroup size="md">
+                <Input
+                  pr="4.5rem"
+                  type={show ? "text" : "password"}
+                  {...registerSignUp("password")}
+                />
+                <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+                    {show ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
             <Button
-              as="a"
-              bg="white"
-              color="black"
-              href="/signup"
-              width="100%"
+              marginTop="4"
+              color="white"
+              bg="teal.400"
+              type="submit"
+              paddingX="auto"
             >
-              新規登録はこちら
+              新規登録
             </Button>
           </VStack>
         </form>
       </VStack>
     </Flex>
   );
-}
+};
 
 export default SigninPage;
