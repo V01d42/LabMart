@@ -33,5 +33,8 @@ async def read_purchase_sold(db: Session = Depends(get_db), products: List[Produ
 
 @router.post("")
 def create_purchase(request: PurchaseBase, db: Session = Depends(get_db), user: str = Depends(get_current_user)):
+    db_product = crud_product.get_product(db, product_id=request.product_id)
+    if db_product.stock < request.quantity:
+        raise HTTPException(status_code=400, detail="requested quantity exceeds stock")
     db_purchases = crud_purchase.create(db, request, user.id)
     return db_purchases
