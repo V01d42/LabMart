@@ -22,21 +22,21 @@
 //   const { isOpen, onOpen, onClose } = useDisclosure();
 
 //   // 選択された商品の情報を取得する関数
-//   const getSelectedProductInfo = (productId: number, quantity: number) => {
+//   const getSelectedProductInfo = (productId: number, stock: number) => {
 //     const product = products.find(product => product.id === productId);
 //     if (!product) return null;
 //     return {
 //       name: product.name,
-//       quantity: quantity,
+//       stock: stock,
 //       price: product.price,
-//       total: product.price * quantity
+//       total: product.price * stock
 //     };
 //   };
 
 //   // 選択された商品の情報の配列を生成
-//   const selectedProductInfoList = Object.entries(selectedProducts).map(([productId, quantity]) => {
-//     return getSelectedProductInfo(parseInt(productId), quantity);
-//   }).filter(info => info !== null) as { name: string, quantity: number, price: number, total: number }[];
+//   const selectedProductInfoList = Object.entries(selectedProducts).map(([productId, stock]) => {
+//     return getSelectedProductInfo(parseInt(productId), stock);
+//   }).filter(info => info !== null) as { name: string, stock: number, price: number, total: number }[];
 
 //   // 合計金額を計算
 //   const totalPrice = selectedProductInfoList.reduce((total, info) => total + info.total, 0);
@@ -56,7 +56,7 @@
 //             {selectedProductInfoList.map((info, index) => (
 //               <Box key={index}>
 //                 <Text>商品名: {info.name}</Text>
-//                 <Text>個数: {info.quantity}</Text>
+//                 <Text>個数: {info.stock}</Text>
 //                 <Text>金額: {info.price}円</Text>
 //                 <Text mb='2'>合計金額: {info.total}円</Text>
 //                 <hr />
@@ -92,7 +92,6 @@ import {
   ModalCloseButton,
   Button,
   Text,
-  Box,
   TableContainer,
   Table,
   Thead,
@@ -105,7 +104,8 @@ import {
 interface SelectedProduct {
   name: string;
   price: number;
-  quantity: number;
+  stock: number;
+  store_id: number;
 }
 
 interface PurchaseModalProps {
@@ -116,7 +116,7 @@ interface PurchaseModalProps {
 }
 
 const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpen, onClose, onConfirm }) => {
-  const totalAmount = selectedProducts.reduce((total, product) => total + product.price * product.quantity, 0);
+  const totalAmount = selectedProducts.reduce((total, product) => total + product.price * product.stock, 0);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -128,23 +128,27 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({ selectedProducts, isOpe
           <TableContainer>
             <Table variant='simple'>
               <Thead>
-                <Th>商品名</Th>
-                <Th>個数</Th>
-                <Th>金額</Th>
+                <Tr>
+                  <Th>商品名</Th>
+                  <Th>個数</Th>
+                  <Th>部屋番号</Th>
+                  <Th>金額(円)</Th>
+                </Tr>
               </Thead>
               {selectedProducts.map((product, index) => (
                 <Tbody key={index}>
                   <Tr>
                     <Td>{product.name}</Td>
-                    <Td>{product.quantity}</Td>
-                    <Td>{product.price * product.quantity}</Td>
+                    <Td>{product.stock}</Td>
+                    <Td>{product.store_id}</Td>
+                    <Td>{product.price * product.stock}</Td>
                   </Tr>
                 </Tbody>
               ))}
             </Table>
           </TableContainer>
 
-          <Text>合計金額: ¥{totalAmount}</Text>
+          <Text mt='5' textAlign='center'>合計金額: {totalAmount} 円</Text>
         </ModalBody>
 
         <ModalFooter>
