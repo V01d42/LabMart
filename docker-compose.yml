@@ -20,5 +20,7 @@ services:
     build:
       context: .
       dockerfile: Docker/frontend/Dockerfile
+    volumes:
+      - ./React:/frontend
     ports:
-      - 3000:3000
+      - 3000:5173
