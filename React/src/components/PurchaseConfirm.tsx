@@ -96,20 +96,10 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
             {selectedProducts.length === 0 ? (
               <>
                 <ModalCloseButton />
-                <ModalBody>
-                  <Text mt="5" textAlign="center">
-                    商品足りてないって。何してんのお前。
-                  </Text>
-                  <Text mt="5" textAlign="center">
-                    厳しいって。
-                  </Text>
-                  <Text mt="5" textAlign="center">
-                    し⚪️よ。
-                  </Text>
-                </ModalBody>
+                  <ModalHeader mt="5" textAlign="center">商品が選択されていません。</ModalHeader>
                 <ModalFooter>
-                  <Button colorScheme="yellow" onClick={onClose}>
-                    すみません戻ります...
+                  <Button colorScheme="gray" onClick={onClose}>
+                    戻る
                   </Button>
                 </ModalFooter>
               </>
