@@ -54,12 +54,12 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
         {isPurchaseComplete ? (
           <>
             <ModalHeader>
-              購入ありがとうございました。購入内容は以下の通りです。
+              ご購入ありがとうございました！
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <TableContainer>
-                <Table variant="simple">
+                <Table size="sm" variant="simple">
                   <Thead>
                     <Tr>
                       <Th>商品名</Th>
@@ -89,7 +89,7 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
                 購入を続ける
               </Button>
               <ChakraLink as={ReactRouterLink} to="/">
-                <Button variant="ghost" onClick={onClose}>
+                <Button onClick={onClose}>
                   購入を終わる
                 </Button>
               </ChakraLink>
@@ -108,7 +108,7 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
                     厳しいって。
                   </Text>
                   <Text mt="5" textAlign="center">
-                    もうし⚪️よ。
+                    し⚪️よ。
                   </Text>
                 </ModalBody>
                 <ModalFooter>
@@ -123,7 +123,7 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
                 <ModalCloseButton />
                 <ModalBody>
                   <TableContainer>
-                    <Table variant="simple">
+                    <Table size="sm" variant="simple">
                       <Thead>
                         <Tr>
                           <Th>商品名</Th>
@@ -157,7 +157,7 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
                   >
                     購入
                   </Button>
-                  <Button variant="ghost" onClick={onClose}>
+                  <Button onClick={onClose}>
                     キャンセル
                   </Button>
                 </ModalFooter>
