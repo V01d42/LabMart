@@ -21,6 +21,7 @@ services:
       context: .
       dockerfile: Docker/frontend/Dockerfile
     volumes:
-      - ./React:/frontend
+      - ./React/src:/frontend/src
+      - ./React/public:/frontend/public
     ports:
       - 3000:5173
