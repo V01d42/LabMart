@@ -183,18 +183,21 @@ const AddProductsContent: React.FC = () => {
             type="text"
             value={productName}
             onChange={handleProductNameChange}
+            focusBorderColor="teal.400"
           />
           <Input
             placeholder="価格"
             type="number"
             value={price}
             onChange={handlePriceChange}
+            focusBorderColor="teal.400"
           />
           <NumberInput
             defaultValue={1}
             min={1}
             value={stock}
             onChange={handleStockChange}
+            focusBorderColor="teal.400"
           >
             <NumberInputField />
             <NumberInputStepper>
