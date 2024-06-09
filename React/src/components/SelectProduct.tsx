@@ -71,6 +71,7 @@ const SelectProduct: React.FC<ProductListProps> = ({
                     onChange={(e) =>
                       handleQuantityChange(product, parseInt(e.target.value, 10))
                     }
+                    focusBorderColor="teal.400"
                   >
                       {[...Array(product.stock + 1).keys()].map((i) => (
                         <option key={i} value={i}>
