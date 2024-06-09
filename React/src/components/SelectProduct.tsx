@@ -44,6 +44,7 @@ const SelectProduct: React.FC<ProductListProps> = ({
             <CardBody>
               <Text>{product.name}</Text>
               <Select
+                size="sm"
                 value={initialQuantity}
                 onChange={(e) =>
                   handleQuantityChange(product, parseInt(e.target.value, 10))
