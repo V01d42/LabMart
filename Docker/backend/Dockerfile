@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir --upgrade -r /backend/requirements.txt
 COPY /FastAPI/run.py /backend/
 COPY /FastAPI/.env /backend/
 
-CMD ["uvicorn", "run:app", "--reload", "--host", "0.0.0.0", "--port", "3001"]
+CMD ["uvicorn", "run:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
