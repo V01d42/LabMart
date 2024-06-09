@@ -4,7 +4,6 @@ WORKDIR /frontend
 COPY /React/.eslintrc.cjs .
 COPY /React/index.html .
 COPY /React/package.json .
-COPY /React/package-lock.json .
 COPY /React/vite.config.ts .
 COPY /React/tsconfig.json .
 COPY /React/tsconfig.node.json .
