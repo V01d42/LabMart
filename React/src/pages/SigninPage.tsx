@@ -143,14 +143,26 @@ const SigninPage = () => {
             <TabPanel>
               <form onSubmit={handleSignInSubmit(onSignInSubmit)}>
                 <VStack spacing="4" alignItems="left">
-                  <FormControl>
+                  <FormControl
+                    sx={{
+                      ".chakra-input:focus": {
+                        borderColor: "teal.300",
+                      },
+                    }}
+                  >
                     <FormLabel htmlFor="username" textAlign="start">
                       ユーザーネーム
                     </FormLabel>
                     <Input id="username" {...registerSignIn("username")} />
                   </FormControl>
 
-                  <FormControl>
+                  <FormControl
+                    sx={{
+                      ".chakra-input:focus": {
+                        borderColor: "teal.300",
+                      },
+                    }}
+                  >
                     <FormLabel htmlFor="password">パスワード</FormLabel>
                     <InputGroup size="md">
                       <Input
@@ -184,17 +196,35 @@ const SigninPage = () => {
             <TabPanel>
               <form onSubmit={onSignUpSubmit}>
                 <VStack spacing="4" alignItems="left">
-                  <FormControl>
+                  <FormControl
+                    sx={{
+                      ".chakra-input:focus": {
+                        borderColor: "teal.300",
+                      },
+                    }}
+                  >
                     <FormLabel htmlFor="email">メールアドレス</FormLabel>
                     <Input id="email" {...registerSignUp("email")} />
                   </FormControl>
 
-                  <FormControl>
+                  <FormControl
+                    sx={{
+                      ".chakra-input:focus": {
+                        borderColor: "teal.300",
+                      },
+                    }}
+                  >
                     <FormLabel htmlFor="username">ユーザーネーム</FormLabel>
                     <Input id="username" {...registerSignUp("username")} />
                   </FormControl>
 
-                  <FormControl>
+                  <FormControl
+                    sx={{
+                      ".chakra-input:focus": {
+                        borderColor: "teal.300",
+                      },
+                    }}
+                  >
                     <FormLabel htmlFor="password">パスワード</FormLabel>
                     <InputGroup size="md">
                       <Input
