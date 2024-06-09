@@ -53,9 +53,7 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
       <ModalContent>
         {isPurchaseComplete ? (
           <>
-            <ModalHeader>
-              ご購入ありがとうございました！
-            </ModalHeader>
+            <ModalHeader>ご購入ありがとうございました！</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <TableContainer>
@@ -85,14 +83,12 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
               </Text>
             </ModalBody>
             <ModalFooter>
-              <Button bg={"teal.400"} color={"white"} mr={3} onClick={onClose}>
+              <ChakraLink as={ReactRouterLink} to="/">
+                <Button mr={3} onClick={onClose}>購入を終わる</Button>
+              </ChakraLink>
+              <Button bg={"teal.400"} color={"white"} onClick={onClose}>
                 購入を続ける
               </Button>
-              <ChakraLink as={ReactRouterLink} to="/">
-                <Button onClick={onClose}>
-                  購入を終わる
-                </Button>
-              </ChakraLink>
             </ModalFooter>
           </>
         ) : (
@@ -100,20 +96,10 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
             {selectedProducts.length === 0 ? (
               <>
                 <ModalCloseButton />
-                <ModalBody>
-                  <Text mt="5" textAlign="center">
-                    商品足りてないって。何してんのお前。
-                  </Text>
-                  <Text mt="5" textAlign="center">
-                    厳しいって。
-                  </Text>
-                  <Text mt="5" textAlign="center">
-                    し⚪️よ。
-                  </Text>
-                </ModalBody>
+                  <ModalHeader mt="5" textAlign="center">商品が選択されていません。</ModalHeader>
                 <ModalFooter>
-                  <Button colorScheme="yellow" onClick={onClose}>
-                    すみません戻ります...
+                  <Button colorScheme="gray" onClick={onClose}>
+                    戻る
                   </Button>
                 </ModalFooter>
               </>
@@ -149,16 +135,11 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
                   </Text>
                 </ModalBody>
                 <ModalFooter>
-                  <Button
-                    bg={"teal.400"}
-                    color={"white"}
-                    mr={3}
-                    onClick={onConfirm}
-                  >
-                    購入
-                  </Button>
-                  <Button onClick={onClose}>
+                  <Button onClick={onClose} mr={3}>
                     キャンセル
+                  </Button>
+                  <Button bg={"teal.400"} color={"white"} onClick={onConfirm}>
+                    購入
                   </Button>
                 </ModalFooter>
               </>

@@ -95,7 +95,7 @@ const BillingConfirmationContent = () => {
           </TableContainer>
         </Card>
         <ChakraLink as={ReactRouterLink} to="/admin">
-          <Button bg={"teal.400"} color={"white"} width="150px">
+          <Button colorScheme="gray" width="150px">
             戻る
           </Button>
         </ChakraLink>
