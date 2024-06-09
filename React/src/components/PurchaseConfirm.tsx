@@ -53,9 +53,7 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
       <ModalContent>
         {isPurchaseComplete ? (
           <>
-            <ModalHeader>
-              ご購入ありがとうございました！
-            </ModalHeader>
+            <ModalHeader>ご購入ありがとうございました！</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <TableContainer>
@@ -85,14 +83,12 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
               </Text>
             </ModalBody>
             <ModalFooter>
-              <Button bg={"teal.400"} color={"white"} mr={3} onClick={onClose}>
+              <ChakraLink as={ReactRouterLink} to="/">
+                <Button mr={3} onClick={onClose}>購入を終わる</Button>
+              </ChakraLink>
+              <Button bg={"teal.400"} color={"white"} onClick={onClose}>
                 購入を続ける
               </Button>
-              <ChakraLink as={ReactRouterLink} to="/">
-                <Button onClick={onClose}>
-                  購入を終わる
-                </Button>
-              </ChakraLink>
             </ModalFooter>
           </>
         ) : (
@@ -149,16 +145,11 @@ const PurchaseConfirm: React.FC<PurchaseModalProps> = ({
                   </Text>
                 </ModalBody>
                 <ModalFooter>
-                  <Button
-                    bg={"teal.400"}
-                    color={"white"}
-                    mr={3}
-                    onClick={onConfirm}
-                  >
-                    購入
-                  </Button>
-                  <Button onClick={onClose}>
+                  <Button onClick={onClose} mr={3}>
                     キャンセル
+                  </Button>
+                  <Button bg={"teal.400"} color={"white"} onClick={onConfirm}>
+                    購入
                   </Button>
                 </ModalFooter>
               </>
